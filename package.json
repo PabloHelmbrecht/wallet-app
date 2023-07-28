@@ -4,17 +4,19 @@
   "private": true,
   "scripts": {
     "build": "next build",
-        "dev": "next dev",
-        "postinstall": "prisma generate --data-proxy",
-        "start": "next start",
-        "type:check": "tsc --noEmit",
-        "analyze": "env ANALYZE=true pnpm build",
-        "lint": "npx eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
-        "types": "tsc",
-        "prepare": "husky install",
-        "format": "npx prettier --write \"./src/**/*.{js,jsx,ts,tsx}\""
+    "dev": "next dev",
+    "postinstall": "prisma generate --data-proxy",
+    "start": "next start",
+    "type:check": "tsc --noEmit",
+    "analyze": "env ANALYZE=true pnpm build",
+    "lint": "npx eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "types": "tsc",
+    "prepare": "husky install",
+    "format": "npx prettier --write \"./src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.14.0",
     "@t3-oss/env-nextjs": "^0.3.1",

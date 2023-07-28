@@ -33,3 +33,4 @@ const config = {
 };
 
 module.exports = config;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
