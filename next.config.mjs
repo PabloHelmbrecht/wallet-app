@@ -19,7 +19,7 @@ const config = {
         defaultLocale: 'es',
     },
     images: {
-        domains: ['lh3.googleusercontent.com', 'media.licdn.com','ui-avatars.com'],
+        domains: ['tailwindui.com','images.unsplash.com','lh3.googleusercontent.com', 'media.licdn.com','ui-avatars.com'],
     },
 }
 export default config

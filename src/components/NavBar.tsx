@@ -3,14 +3,12 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import { useTranslation } from "react-i18next";
 
 
-const navigation = [
-    { name: 'Dashboard', href: '/' },
-    { name: 'Team', href: '/page' },
-    { name: 'Projects', href: '/page' },
-    { name: 'Calendar', href: '/page' },
-]
+
+
+
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -18,11 +16,20 @@ function classNames(...classes: string[]) {
 
 export default function Example() {
   const pathname = usePathname()
+  const { t } = useTranslation();
+
+  const navigation = [
+    { name: t('dashboard'), href: '/' },
+    { name: t('accounts'), href: '/accounts' },
+    { name: t('records'), href: '/records' },
+    { name: t('analytics'), href: '/analytics' },
+    { name: t('imports'), href: '/imports' },
+]
 
     return (
         <Disclosure
             as="nav"
-            className="bg-gray-800">
+            className=" bg-white dark:bg-gray-800 sticky top-0 ">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -49,8 +56,10 @@ export default function Example() {
                                 <div className="flex flex-shrink-0 items-center">
                                     <Image
                                         className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        src="/icon.png"
                                         alt="Your Company"
+                                        width={80}
+                                        height={80}
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
@@ -61,8 +70,8 @@ export default function Example() {
                                                 href={item.href}
                                                 className={classNames(
                                                     pathname === item.href
-                                                        ? 'bg-gray-900 text-white'
-                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                        ? 'bg-primary text-white'
+                                                        : 'text-gray-500 hover:bg-gray-100 ',
                                                     'rounded-md px-3 py-2 text-sm font-medium',
                                                 )}
                                                 aria-current={ pathname === item.href ? 'page' : undefined}>
@@ -96,6 +105,8 @@ export default function Example() {
                                                 className="h-8 w-8 rounded-full"
                                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                                 alt=""
+                                                width={80}
+                                                height={80}
                                             />
                                         </Menu.Button>
                                     </div>
