@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         primary: '#21ab7b',
-        secondary: '#426a5a',
+        secondary: '#177856',
         azure: '#1E87FF',
         eerieblack: '#1E2328',
         emerald: '#28D296',

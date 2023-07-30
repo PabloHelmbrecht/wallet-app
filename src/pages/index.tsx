@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { api } from '~/utils/api'
 import NavBar from '../components/NavBar'
 
@@ -20,10 +19,8 @@ export default function Home() {
                     href="/favicon.ico"
                 />
             </Head>
-            <NavBar/>
-            <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 ">
-                
-            </main>
+            <NavBar />
+            <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 "></main>
         </>
     )
 }
