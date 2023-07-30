@@ -11,13 +11,13 @@ i18n.use(initReactI18next)
         resources: {
             es: {
                 translation: {
-                    'dashboard': 'Panel',
-                    'accounts': 'Cuentas',
-                    'records': 'Registros',
-                    'analytics': 'Estadísticas',
-                    'imports': 'Importaciones',
+                    dashboard: 'Panel',
+                    accounts: 'Cuentas',
+                    records: 'Registros',
+                    analytics: 'Estadísticas',
+                    imports: 'Importaciones',
                     'your profile': 'Tu Perfil',
-                    'settings': 'Configuración',
+                    settings: 'Configuración',
                     'sign in': 'Iniciar Sesión',
                     'sign out': 'Cerrar Sesión',
                     'view notifications': 'Ver notificaciones',
