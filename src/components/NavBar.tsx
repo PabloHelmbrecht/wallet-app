@@ -4,14 +4,14 @@ import { Bars3Icon, BellIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/ou
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function NavBar() {
     const pathname = usePathname()
     const { t } = useTranslation()
     const { data: sessionData } = useSession()
@@ -105,7 +105,10 @@ export default function Example() {
 
                                                 <Image
                                                     className="h-8 w-8 rounded-full"
-                                                    src={String(sessionData?.user?.image)??"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
+                                                    src={
+                                                        String(sessionData?.user?.image) ??
+                                                        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                                                    }
                                                     alt=""
                                                     width={80}
                                                     height={80}
@@ -148,7 +151,11 @@ export default function Example() {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <button
-                                                            onClick={()=> {signOut().catch((error)=>{console.log(error)})}}
+                                                            onClick={() => {
+                                                                signOut().catch((error) => {
+                                                                    console.log(error)
+                                                                })
+                                                            }}
                                                             className={classNames(
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block px-4 py-2 text-sm text-gray-700',
@@ -187,7 +194,11 @@ export default function Example() {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <button
-                                                        onClick={()=> {signIn().catch((error)=>{console.log(error)})}}
+                                                            onClick={() => {
+                                                                signIn().catch((error) => {
+                                                                    console.log(error)
+                                                                })
+                                                            }}
                                                             className={classNames(
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block px-4 py-2 text-sm text-gray-700',

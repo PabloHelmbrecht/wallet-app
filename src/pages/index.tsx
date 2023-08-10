@@ -2,12 +2,13 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { api } from '~/utils/api'
 import NavBar from '../components/NavBar'
+import SideBar from '../components/SideBar'
 
 export default function Home() {
     const hello = api.example.hello.useQuery({ text: 'from tRPC' })
 
     return (
-        <>
+        <SideBar>
             <Head>
                 <title>Wallet App</title>
                 <meta
@@ -20,10 +21,8 @@ export default function Home() {
                 />
             </Head>
             <NavBar />
-            <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 ">
-               
-            </main>
-        </>
+            <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 "></main>
+        </SideBar>
     )
 }
 

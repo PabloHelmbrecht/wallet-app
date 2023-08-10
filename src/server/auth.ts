@@ -1,19 +1,15 @@
 import { type GetServerSidePropsContext } from 'next'
 import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth'
-import { env } from "~/env.mjs";
+import { env } from '~/env.mjs'
 import { prisma } from '~/server/db'
-
 
 //Schemas
 import { loginSchema } from '~/utils/validation'
 import { verify } from 'argon2'
 
-
-
 //Providers
 import CredentialsProvider from 'next-auth/providers/credentials'
-import GoogleProvider from "next-auth/providers/google";
-
+import GoogleProvider from 'next-auth/providers/google'
 
 //Adapters
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
@@ -55,47 +51,47 @@ export const authOptions: NextAuthOptions = {
         }),
     },
     adapter: PrismaAdapter(prisma),
-    
+
     providers: [
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID,
-            clientSecret: env.GOOGLE_CLIENT_SECRET
-          }),
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+        }),
 
-    CredentialsProvider({
-        name: "credentials",
-        credentials: {
-          email: {
-            label: "Email",
-            type: "email",
-            placeholder: "jsmith@gmail.com",
-          },
-          password: { label: "Password", type: "password" },
-        },
-        authorize: async (credentials) => {
-          const creds = await loginSchema.parseAsync(credentials);
-  
-          const user = await prisma.user.findFirst({
-            where: { email: creds.email },
-          });
-  
-          if (!user) {
-            return null;
-          }
-  
-          const isValidPassword = await verify(String(user.password), creds.password);
-  
-          if (!isValidPassword) {
-            return null;
-          }
-  
-          return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-          };
-        },
-      }),
+        CredentialsProvider({
+            name: 'credentials',
+            credentials: {
+                email: {
+                    label: 'Email',
+                    type: 'email',
+                    placeholder: 'jsmith@gmail.com',
+                },
+                password: { label: 'Password', type: 'password' },
+            },
+            authorize: async (credentials) => {
+                const creds = await loginSchema.parseAsync(credentials)
+
+                const user = await prisma.user.findFirst({
+                    where: { email: creds.email },
+                })
+
+                if (!user) {
+                    return null
+                }
+
+                const isValidPassword = await verify(String(user.password), creds.password)
+
+                if (!isValidPassword) {
+                    return null
+                }
+
+                return {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                }
+            },
+        }),
     ],
 }
 
