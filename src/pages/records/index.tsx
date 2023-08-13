@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import NavBar from '../../components/NavBar'
 import SideBar from '../../components/SideBar'
 import DateRangePicker from '~/components/DataRangePicker'
 
@@ -17,8 +16,8 @@ export default function Records() {
                     href="/favicon.ico"
                 />
             </Head>
-            <SideBar>
-                <NavBar />
+            <SideBar navBar={<div></div> }>
+        
                 <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 ">
                     <div className="flex h-screen w-full flex-col items-start justify-center gap-6 px-16 py-6">
                         <div className="flex w-full flex-row items-center justify-between gap-4">
