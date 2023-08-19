@@ -66,10 +66,34 @@ export function checkTimeRange({ start, end }: { start: Date | moment.Moment; en
         return i18n.t('last days', { count: 90 })
     }
 
+    // Last 1 months (exactly 1 months before the current date)
+    const last1MonthsStart = moment(currentDate).subtract(1, 'months')
+    if (moment(start).isSame(last1MonthsStart, 'day') && moment(end).isSame(currentDate, 'day')) {
+        return i18n.t('last months', { count: 1 })
+    }
+
+    // Last 3 months (exactly 3 months before the current date)
+    const last3MonthsStart = moment(currentDate).subtract(3, 'months')
+    if (moment(start).isSame(last3MonthsStart, 'day') && moment(end).isSame(currentDate, 'day')) {
+        return i18n.t('last months', { count: 3 })
+    }
+
+    // Last 6 months (exactly 6 months before the current date)
+    const last6MonthsStart = moment(currentDate).subtract(6, 'months')
+    if (moment(start).isSame(last6MonthsStart, 'day') && moment(end).isSame(currentDate, 'day')) {
+        return i18n.t('last months', { count: 6 })
+    }
+
     // Last 12 months (exactly 12 months before the current date)
     const last12MonthsStart = moment(currentDate).subtract(12, 'months')
     if (moment(start).isSame(last12MonthsStart, 'day') && moment(end).isSame(currentDate, 'day')) {
         return i18n.t('last months', { count: 12 })
+    }
+
+    // Last 12 months (exactly 12 months before the current date)
+    const all = moment(currentDate).subtract(100, 'years')
+    if (moment(start).isSame(all, 'day') && moment(end).isSame(currentDate, 'day')) {
+        return i18n.t('all the records')
     }
 
     //Same year as current year

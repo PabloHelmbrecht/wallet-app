@@ -36,6 +36,10 @@ i18n.use(initReactI18next)
                     'this year': 'Este año',
                     'last days': 'Últimos {{count}} días',
                     'last months': 'Últimos {{count}} meses',
+                    'all the records': 'Todo el historial',
+                    all: 'Todo',
+                    'month count': '{{count}}M',
+                    'year count': '{{count}}A',
                     january: 'Enero',
                     february: 'Febrero',
                     march: 'Marzo',
@@ -48,12 +52,17 @@ i18n.use(initReactI18next)
                     october: 'Octubre',
                     november: 'Noviembre',
                     december: 'December',
+                    'net worth': 'Patrimonio',
+                    'add account': 'Agregar Cuenta',
+                    summary: 'Resumen',
+                    assets: 'Activos',
+                    liabilities: 'Activos',
                 },
             },
         },
     })
     .catch((e) => {
-        console.log(`Error al iniciar i18n: ${String(e)}`)
+        console.error(`Error al iniciar i18n: ${String(e)}`)
     })
 
 export default i18n

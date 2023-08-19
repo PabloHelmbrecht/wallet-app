@@ -6,15 +6,10 @@ export default {
     extend: {
       colors: {
         primary: '#21ab7b',
-        secondary: '#ED6A5A',
-        primarylighter: '#43DBA6',
-        azure: '#1E87FF',
-        eerieblack: '#1E2328',
-        emerald: '#28D296',
-        saffron: '#FAC346',
-        coral: '#FA874B',
-        brightpink: '#FA5F69',
-        tropicalindigo: '#8C7DFA',
+        secondary: '#DB3069',
+        terciary: '#114b5f',
+        win:'#21ab7b',
+        loss:'#D12839'
       },
     },
   },

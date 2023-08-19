@@ -8,6 +8,7 @@ import '~/lib/i18n'
 import i18n from '~/lib/i18n'
 import { I18nProvider } from 'react-aria'
 
+
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     const queryClient = new QueryClient()
     return (

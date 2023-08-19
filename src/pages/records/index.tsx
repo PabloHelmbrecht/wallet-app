@@ -2,7 +2,20 @@ import Head from 'next/head'
 import SideBar from '../../components/SideBar'
 import DateRangePicker from '~/components/DataRangePicker'
 
+//TRPc
+import { api } from '~/utils/api'
+
+
+//Moment Js
+import moment from '~/lib/moment'
+
+//Next Auth
+import { useSession } from 'next-auth/react'
+
+
 export default function Records() {
+    const { data: sessionData } = useSession()
+
     return (
         <>
             <Head>
@@ -16,8 +29,7 @@ export default function Records() {
                     href="/favicon.ico"
                 />
             </Head>
-            <SideBar navBar={<div></div> }>
-        
+            <SideBar navBar={<div></div>}>
                 <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 ">
                     <div className="flex h-screen w-full flex-col items-start justify-center gap-6 px-16 py-6">
                         <div className="flex w-full flex-row items-center justify-between gap-4">
