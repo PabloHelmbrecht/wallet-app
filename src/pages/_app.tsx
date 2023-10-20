@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 import { type Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { type AppType } from 'next/app'
@@ -8,7 +10,6 @@ import '~/lib/i18n'
 import i18n from '~/lib/i18n'
 import { I18nProvider } from 'react-aria'
 
-
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     const queryClient = new QueryClient()
     return (
@@ -16,6 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { s
             <SessionProvider session={session}>
                 <QueryClientProvider client={queryClient}>
                     <Component {...pageProps} />
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </QueryClientProvider>
             </SessionProvider>
         </I18nProvider>

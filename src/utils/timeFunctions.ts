@@ -3,9 +3,23 @@ import moment from '~/lib/moment'
 
 //i18n
 import i18n from '~/lib/i18n'
+import type { IDateFrequency, ISeriesData } from './validation'
 
-export function checkTimeRange({ start, end }: { start: Date | moment.Moment; end: Date | moment.Moment }) {
+export function checkTimeRange({
+    start,
+    end,
+}: {
+    start: Date | moment.Moment | undefined
+    end: Date | moment.Moment | undefined
+}) {
     const currentDate = moment()
+    if (end === undefined) {
+        end = currentDate
+    }
+
+    if (start === undefined) {
+        return i18n.t('all the records')
+    }
 
     // Day of the current day
     if (moment(start).isSame(currentDate, 'day') && moment(end).isSame(currentDate, 'day')) {
@@ -90,12 +104,6 @@ export function checkTimeRange({ start, end }: { start: Date | moment.Moment; en
         return i18n.t('last months', { count: 12 })
     }
 
-    // Last 12 months (exactly 12 months before the current date)
-    const all = moment(currentDate).subtract(100, 'years')
-    if (moment(start).isSame(all, 'day') && moment(end).isSame(currentDate, 'day')) {
-        return i18n.t('all the records')
-    }
-
     //Same year as current year
     if (moment(start).isSame(currentDate, 'year') && moment(end).isSame(currentDate, 'year')) {
         //startTime and endTime are same day
@@ -164,4 +172,48 @@ export function checkTimeRange({ start, end }: { start: Date | moment.Moment; en
 
     //startDate and endDate different year
     return String(`${moment(start).format(`D/MM/YYYY`)} ${i18n.t('to')} ${moment(end).format(`D/MM/YYYY`)}`)
+}
+
+export function AggregateDates(series: ISeriesData[], frequency: IDateFrequency, start?: Date) {
+    const xaxisFormat: { [frequency in IDateFrequency]: string } = {
+        day: 'D/M',
+        week: "[W]WW 'YY",
+        month: 'MMMM yyyy',
+        year: 'yyyy',
+    }
+
+    const seriesGrouped: ISeriesData[] = []
+
+    let currentElement: ISeriesData = { x: new Date(0), y: 0 }
+
+    series = series.sort((a, b) => a.x.getTime() - b.x.getTime())
+
+    if (start) {
+        series = series.filter(({ x }) => x.getTime() >= start.getTime())
+    }
+    series.forEach((data, index) => {
+        if (currentElement.x.getTime() === 0) {
+            currentElement = {
+                x: moment(data.x).startOf(frequency).toDate(),
+                y: data.y,
+            }
+        }
+
+        if (moment(currentElement.x).isSame(data.x, frequency)) {
+            currentElement.y += data.y
+
+            if (index === series.length - 1) seriesGrouped.push(currentElement)
+        } else {
+            seriesGrouped.push(currentElement)
+            currentElement = {
+                x: moment(data.x).startOf(frequency).toDate(),
+                y: data.y,
+            }
+        }
+    })
+
+    return seriesGrouped.map((data) => ({
+        x: moment(data.x).format(xaxisFormat[frequency]),
+        y: data.y,
+    }))
 }

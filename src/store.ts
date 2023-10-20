@@ -8,49 +8,9 @@ import z from 'zod'
 import moment from '~/lib/moment'
 
 //Schemas
-export const datePickerViewAtomSchema = z.enum(['presets', 'ranges', 'months', 'years'])
-export const dateAtomSchema = z.object({
-    start: z.date(),
-    end: z.date(),
-})
-export const sideMenuAtomSchema = z.boolean()
-export const configAtomSchema = z.object({
-    currency: z.enum([
-        'ARS',
-        'AUD',
-        'BOB',
-        'BRL',
-        'CAD',
-        'CLP',
-        'COP',
-        'EUR',
-        'GBP',
-        'GTQ',
-        'HKD',
-        'HNL',
-        'ILS',
-        'INR',
-        'JPY',
-        'KRW',
-        'MXN',
-        'PAB',
-        'PEN',
-        'PLN',
-        'PYG',
-        'SVC',
-        'USD',
-        'UYU',
-    ]),
-    presetDateRange: z.object({ start: z.date(), end: z.date() }),
-})
-export const chartDateAtomSchema = z.enum(['1M', '3M', '6M', '1Y', 'ALL'])
+import { datePickerViewAtomSchema, dateAtomSchema, sideMenuAtomSchema, configAtomSchema, chartDateAtomSchema } from './utils/validation'
 
-//Types
-export type IDatePickerViewAtom = z.infer<typeof datePickerViewAtomSchema>
-export type IDateAtom = z.infer<typeof dateAtomSchema>
-export type ISideMenuAtom = z.infer<typeof sideMenuAtomSchema>
-export type IConfigAtom = z.infer<typeof configAtomSchema>
-export type IChartDateAtom = z.infer<typeof chartDateAtomSchema>
+
 
 //Atoms
 export const datePickerViewAtom = atom(datePickerViewAtomSchema.parse('ranges'))

@@ -3,16 +3,17 @@ import * as Popover from '@radix-ui/react-popover'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 
 //Hero Icons
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 
 //i18next
 import { useTranslation } from 'react-i18next'
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
-
 //Jotai
 import { useAtom } from 'jotai'
-import { dateAtom, datePickerViewAtom, datePickerViewAtomSchema, type IDateAtom } from '~/store'
+import { dateAtom, datePickerViewAtom } from '~/store'
+
+//Schemas and Types
+import {  datePickerViewAtomSchema, type IDateAtom } from '~/utils/validation'
 
 //React Aria
 import {
@@ -84,7 +85,7 @@ function PresetsView({ date, setDate }: { date: IDateAtom; setDate: (date: IDate
                                     date={dateValue}
                                     className={`flex  aspect-square 
                                     items-center justify-center rounded-md p-2 text-center text-sm  hover:bg-gray-100 aria-disabled:text-gray-400 
-                                    data-[selection-end=true]:rounded-r-2xl data-[selection-start=true]:rounded-l-2xl data-[selected=true]:bg-primary/20 
+                                    data-[selection-end=true]:rounded-r-md data-[selection-start=true]:rounded-l-md data-[selected=true]:bg-primary/20 
                                     data-[selection-end=true]:bg-primary/100 data-[selection-start=true]:bg-primary/100 
                                     data-[selection-end=true]:text-white data-[selection-start=true]:text-white`}
                                 />
@@ -190,7 +191,7 @@ function YearsView({ date, setDate }: { date: IDateAtom; setDate: (date: IDateAt
     return <div></div>
 }
 
-function DateRangePicker() {
+export function DateRangePickerField() {
     //Hooks
     const { t } = useTranslation()
 
@@ -228,15 +229,14 @@ function DateRangePicker() {
         'first:rounded-l last:rounded-r w-full text-gray-900 hover:bg-primary/30 data-[state=on]:bg-primary data-[state=on]:text-white flex h-8 px-3 items-center justify-center bg-white focus:z-10 focus:outline-none'
 
     return (
-        <div className="relative flex flex-row  items-center justify-center gap-1.5">
-            <ChevronLeftIcon className="color-primary aspect-square h-6" />
+        <div className="relative flex  flex-row items-center justify-center gap-1.5  rounded border-2 border-gray-200">
             <Popover.Root>
-                <Popover.Trigger className="w-60 rounded-md bg-white py-1.5  text-gray-900 ">
+                <Popover.Trigger className="w-full rounded bg-white py-1.5 text-sm  text-gray-900 ">
                     {checkTimeRange(date)}
                 </Popover.Trigger>
                 <Popover.Anchor className="absolute top-12" />
                 <Popover.Portal>
-                    <Popover.Content className="rounded-lg bg-white p-4 drop-shadow-lg">
+                    <Popover.Content className="z-[2] rounded-md bg-white p-4 drop-shadow-lg">
                         <Popover.Arrow
                             className="fill-white"
                             height={7.5}
@@ -244,7 +244,7 @@ function DateRangePicker() {
                         />
                         <div>
                             <ToggleGroup.Root
-                                className="flex w-full flex-row"
+                                className="flex w-full flex-row text-sm"
                                 type="single"
                                 defaultValue={datePickerView}
                                 aria-label="Datepicker Range"
@@ -282,9 +282,6 @@ function DateRangePicker() {
                     </Popover.Content>
                 </Popover.Portal>
             </Popover.Root>
-            <ChevronRightIcon className="aspect-square h-6" />
         </div>
     )
 }
-
-export default DateRangePicker

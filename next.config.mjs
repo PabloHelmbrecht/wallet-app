@@ -19,7 +19,7 @@ let config = {
         defaultLocale: 'es',
     },
     images: {
-        domains: ['tailwindui.com','images.unsplash.com','lh3.googleusercontent.com', 'media.licdn.com','ui-avatars.com'],
+        domains: ['tailwindui.com','images.unsplash.com','lh3.googleusercontent.com', 'media.licdn.com','ui-avatars.com','ibb.co'],
     },
     webpack(config) {
         // Grab the existing rule that handles SVG imports

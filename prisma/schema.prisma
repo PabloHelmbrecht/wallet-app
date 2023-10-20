@@ -16,12 +16,6 @@ datasource db {
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -50,16 +44,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   password      String?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  group         Group?        @relation(fields: [groupId], references: [id])
+  groupId       String?
   accounts      Account[]
   sessions      Session[]
+  transactions  Transaction[]
 }
 
 model VerificationToken {
@@ -68,4 +65,136 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Transaction {
+  id                 String            @id @default(cuid())
+  amount             Float             @default(0)
+  description        String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @default(now()) @updatedAt
+  category           Category          @relation(fields: [categoryId], references: [id])
+  categoryId         String
+  bookingDate        DateTime?
+  paymentDate        DateTime?
+  financialAccount   FinancialAccount  @relation(name: "mainAccount", fields: [financialAccountId], references: [id])
+  financialAccountId String
+  transferAccount    FinancialAccount? @relation(name: "transferAccount", fields: [transferAccountId], references: [id])
+  transferAccountId  String?
+  currency           Currency
+  user               User              @relation(fields: [userId], references: [id])
+  userId             String
+  group              Group             @relation(fields: [groupId], references: [id])
+  groupId            String
+  beneficiary        Beneficiary?      @relation(fields: [beneficiaryId], references: [id])
+  beneficiaryId      String?
+  budget             Budget?           @relation(fields: [budgetId], references: [id])
+  budgetId           String?
+  source             Source?           @relation(fields: [sourceId], references: [id])
+  sourceId           String?
+  exchangeRate       Float             @default(1)
+  tags               Tag[]
+}
+
+model Tag {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  group        Group         @relation(fields: [groupId], references: [id])
+  groupId      String
+  transactions Transaction[]
+}
+
+model Category {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  group        Group         @relation(fields: [groupId], references: [id])
+  groupId      String
+  transactions Transaction[]
+}
+
+model FinancialAccount {
+  id                   String        @id @default(cuid())
+  name                 String
+  image                String
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @default(now()) @updatedAt
+  group                Group         @relation(fields: [groupId], references: [id])
+  groupId              String
+  transactions         Transaction[] @relation(name: "mainAccount")
+  transferTransactions Transaction[] @relation(name: "transferAccount")
+}
+
+model Group {
+  id                String             @id @default(cuid())
+  name              String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now()) @updatedAt
+  transactions      Transaction[]
+  tags              Tag[]
+  categories        Category[]
+  financialAccounts FinancialAccount[]
+  beneficiaries     Beneficiary[]
+  budgets           Budget[]
+  sources           Source[]
+  users             User[]
+}
+
+model Beneficiary {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  group        Group         @relation(fields: [groupId], references: [id])
+  groupId      String
+  transactions Transaction[]
+}
+
+model Budget {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  group        Group         @relation(fields: [groupId], references: [id])
+  groupId      String
+  transactions Transaction[]
+}
+
+model Source {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  group        Group         @relation(fields: [groupId], references: [id])
+  groupId      String
+  transactions Transaction[]
+}
+
+enum Currency {
+  ARS
+  AUD
+  BOB
+  BRL
+  CAD
+  CLP
+  COP
+  EUR
+  GBP
+  GTQ
+  HKD
+  HNL
+  ILS
+  INR
+  JPY
+  KRW
+  MXN
+  PAB
+  PEN
+  PLN
+  PYG
+  SVC
+  USD
+  UYU
 }

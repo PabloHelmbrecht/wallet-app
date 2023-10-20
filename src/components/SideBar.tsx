@@ -1,5 +1,5 @@
 //React
-import { Fragment, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
 //Headless UI
 import { Menu } from '@headlessui/react'
@@ -218,7 +218,7 @@ export default function SideBar({ children, navBar }: { children: ReactNode; nav
                     </div>
                     <div className="h-full w-full ">{navBar}</div>
                 </div>
-                <div className="z-10">{children}</div>
+                <div className="">{children}</div>
             </div>
         </>
     )

@@ -30,7 +30,7 @@ try {
 
     moment.locale(language)
 } catch (error) {
-    console.log(`Error al cargar lenguaje en Moment.js: ${String(error)}`)
+    console.error(`Error al cargar lenguaje en Moment.js: ${String(error)}`)
 }
 
 export default moment

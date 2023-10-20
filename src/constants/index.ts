@@ -1,8 +1,16 @@
 //Moment Js
 import moment from '~/lib/moment'
-import { type IAccountCategory, type IAccountingType } from '~/utils/validation'
+import type { IDateFrequency, IChartDateAtom } from '~/utils/validation'
 
 export const CURRENCIES = [
+    {
+        code: 'USD',
+        currency: 'United States dollar',
+    },
+    {
+        code: 'EUR',
+        currency: 'Euro',
+    },
     {
         code: 'ARS',
         currency: 'Argentine peso',
@@ -31,10 +39,7 @@ export const CURRENCIES = [
         code: 'COP',
         currency: 'Colombian peso',
     },
-    {
-        code: 'EUR',
-        currency: 'Euro',
-    },
+    
     {
         code: 'GBP',
         currency: 'Pound sterling',
@@ -92,40 +97,38 @@ export const CURRENCIES = [
         currency: 'Salvadoran colón',
     },
     {
-        code: 'USD',
-        currency: 'United States dollar',
-    },
-    {
         code: 'UYU',
         currency: 'Uruguayan peso',
     },
 ]
 
-export const CHART_DATES = {
+export const CHART_DATES: {
+    [chartDate in IChartDateAtom]: { start: Date | undefined; end: Date | undefined; frequency: IDateFrequency }
+} = {
     '1M': {
         start: moment().subtract(1, 'month').toDate(),
-        end: moment().toDate(),
-        frequency: 'days',
+        end: undefined,
+        frequency: 'day',
     },
     '3M': {
         start: moment().subtract(3, 'month').toDate(),
-        end: moment().toDate(),
-        frequency: 'days',
+        end: undefined,
+        frequency: 'week',
     },
     '6M': {
         start: moment().subtract(6, 'month').toDate(),
-        end: moment().toDate(),
-        frequency: 'days',
+        end: undefined,
+        frequency: 'month',
     },
     '1Y': {
         start: moment().subtract(1, 'years').toDate(),
-        end: moment().toDate(),
-        frequency: 'months',
+        end: undefined,
+        frequency: 'month',
     },
     ALL: {
-        start: moment().subtract(100, 'years').toDate(),
-        end: moment().toDate(),
-        frequency: 'years',
+        start: undefined,
+        end: undefined,
+        frequency: 'year',
     },
 }
 
@@ -140,16 +143,9 @@ export const COLORS = {
     cerulean: '#277DA1',
 }
 
-export const ACCOUNTING_TYPES: { [type in IAccountCategory]: IAccountingType } = {
-    general: 'asset',
-    cash: 'asset',
-    'current account': 'mixed',
-    'credit card': 'liability',
-    'account with overdraft': 'mixed',
-    'saving account': 'asset',
-    bonus: 'asset',
-    insurance: 'asset',
-    investment: 'asset',
-    loan: 'liability',
-    mortgage: 'liability',
+export const CLASSNAME_SKELETON = {
+    base: 'animate-pulse bg-gray-300',
+    doubleXLText: 'animate-pulse bg-gray-300 h-[2ch] rounded-md',
+    smallText: 'animate-pulse bg-gray-300 h-[1.5ch] rounded-md',
+    xsText: 'animate-pulse bg-gray-300 h-[1.2ch] rounded-md',
 }
